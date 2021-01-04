@@ -16,3 +16,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+
+
+
+
+
+
+
+
+
+
+
+Route::resource('criterias', App\Http\Controllers\CriteriasController::class);

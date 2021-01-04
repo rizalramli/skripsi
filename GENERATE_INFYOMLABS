@@ -1,0 +1,1 @@
+php artisan infyom:scaffold Criterias --fromTable --tableName=criterias --jqueryDT
