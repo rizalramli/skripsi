@@ -15,6 +15,48 @@ class UserController extends CI_Controller
 
     public function index()
     {
-        $this->template->load('layouts/app', 'master/user/index');
+        $table = 'user';
+        $data['items'] = $this->M_crud->tampil_data($table)->result();
+        $this->template->load('layouts/app', 'master/user/index', $data);
+    }
+
+    public function create()
+    {
+        $this->template->load('layouts/app', 'master/user/create');
+    }
+
+    public function store()
+    {
+        $nama_user  = $this->input->post('nama_user');
+        $username  = $this->input->post('username');
+        $password  = $this->input->post('password');
+
+        $this->form_validation->set_rules('nama_user', 'Nama', 'required');
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+
+        if ($this->form_validation->run() != false) {
+            $data = array(
+                'nama_user'      => $nama_user,
+                'username'      => $username,
+                'password'     => password_hash($password, PASSWORD_DEFAULT),
+                'role' => 'Admin'
+            );
+            $this->M_crud->input_data($data, 'user');
+            redirect('user');
+        } else {
+            $this->template->load('layouts/app', 'master/user/create');
+        }
+    }
+
+
+    public function delete($id)
+    {
+        $where = array(
+            'id_user' => $id
+        );
+
+        $this->M_crud->hapus_data($where, 'user');
+        redirect('user');
     }
 }
