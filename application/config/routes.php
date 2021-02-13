@@ -67,6 +67,10 @@ $route['product/(:any)/edit']   = 'master/ProductController/edit/$1';
 $route['product/update']             = 'master/ProductController/update';
 $route['product/(:any)/delete']   = 'master/ProductController/delete/$1';
 
+$route['calculate']             = 'transaction/CalculateController/index';
+$route['priority']             = 'transaction/CalculateController/priority';
+
+
 
 // $route['candidate/(:any)/create'] = 'master/CandidateController/create/$1';
 // $route['candidate/(:any)/delete'] = 'master/CandidateController/delete/$1';

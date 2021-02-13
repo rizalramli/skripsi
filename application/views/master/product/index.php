@@ -10,14 +10,14 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table width="100%" class="table table-sm table-striped dataTables">
+                    <table width="100%" class="table table-striped dataTables">
                         <thead>
                             <tr>
                                 <th width="5%" scope="col">No</th>
                                 <th scope="col">Nama</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Tingkat Kesulitan</th>
-                                <th width="11%" scope="col">Action</th>
+                                <th width="15%" scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>

@@ -12,8 +12,11 @@ class CalculateController extends CI_Controller
 
     public function index()
     {
-        $table = 'kriteria';
-        $data['items'] = $this->M_crud->tampil_data($table)->result();
-        $this->template->load('layouts/app', 'master/criteria/index', $data);
+        $this->template->load('layouts/app', 'transaction/calculate/index');
+    }
+
+    public function priority()
+    {
+        $this->template->load('layouts/app', 'transaction/calculate/priority');
     }
 }
