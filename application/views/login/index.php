@@ -28,6 +28,9 @@
                             <?php if ($this->session->flashdata('password')) : ?>
                                 <div class="cek-password" data-flashdata="<?= $this->session->flashdata('password'); ?>"></div>
                             <?php endif; ?>
+                            <?php if ($this->session->flashdata('akses')) : ?>
+                                <div class="cek-akses" data-flashdata="<?= $this->session->flashdata('akses'); ?>"></div>
+                            <?php endif; ?>
 
                             <div class="card-body">
                                 <form action="<?php echo base_url('login/store') ?>" method="post">
@@ -82,6 +85,15 @@
                 icon: 'error',
                 title: 'Gagal',
                 text: 'Password anda salah !'
+            })
+        }
+
+        var cek_akses = $('.cek-akses').data(cek_akses);
+        if (cek_akses) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Gagal',
+                text: 'Anda tidak memiliki akses !'
             })
         }
 

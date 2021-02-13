@@ -25,12 +25,17 @@ class LoginController extends CI_Controller
         if ($query->num_rows() > 0) {
             $hash = $query->row('password');
             if (password_verify($password, $hash)) {
-                $data_session = array(
-                    'nama_user' => $query->row('nama_user'),
-                    'username' => $query->row('username'),
-                );
-                $this->session->set_userdata($data_session);
-                redirect('priority');
+                if ($query->row('role') == "Admin") {
+                    $data_session = array(
+                        'nama_user' => $query->row('nama_user'),
+                        'username' => $query->row('username'),
+                    );
+                    $this->session->set_userdata($data_session);
+                    redirect('priority');
+                } else {
+                    $this->session->set_flashdata('akses', 'Diakses');
+                    redirect('/');
+                }
             } else {
                 $this->session->set_flashdata('password', 'Dilogin');
                 redirect('/');
