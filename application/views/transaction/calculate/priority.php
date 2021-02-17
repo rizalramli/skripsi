@@ -101,6 +101,7 @@
             $dmin[$i - 1] += pow($ymin[$k] - $y[$k][$i - 1], 2);
         }
     }
+
     $count_data = 0;
 
     ?>
@@ -135,16 +136,12 @@
 
                                 foreach ($data as $nama => $krit) {
                                     ++$i;
-                                ?>
-                                    <?php
+
                                     foreach ($kriteria as $k) {
                                         $V[$i - 1] = sqrt($dmin[$i - 1]) / (sqrt($dmin[$i - 1]) + sqrt($dplus[$i - 1]));
                                     }
                                     $preferensi = round($V[$i - 1], 3);
                                     $tampung_array[] = ["nama_barang" => $nama, "nilai" => $preferensi];
-
-                                    ?>
-                                <?php
                                 }
 
                                 // Mengurutkan array dari kecil ke besar
@@ -157,6 +154,7 @@
                                 $tampung_array = array_reverse($tampung_array);
                                 ?>
                                 <?php
+
                                 $no = 1;
                                 foreach ($tampung_array as $tampil) {
                                     $nama = $tampil['nama_barang'];
