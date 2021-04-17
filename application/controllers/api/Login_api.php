@@ -11,6 +11,7 @@ class Login_api extends REST_Controller
     function __construct($config = 'rest')
     {
         parent::__construct($config);
+        $this->load->model('M_crud');
     }
 
     function index_post()
@@ -24,7 +25,7 @@ class Login_api extends REST_Controller
         $query = $this->M_crud->edit_data($where, 'user');
 
         $result = array();
-        $result['login'] = array();
+        $result["data"] = array();
         if ($query->num_rows() > 0) {
             $hash = $query->row('password');
             if (password_verify($password, $hash)) {
@@ -34,20 +35,20 @@ class Login_api extends REST_Controller
                     'username' => $query->row('username'),
                     'role' => $query->row('role'),
                 );
-                array_push($result['login'], $data);
+                array_push($result["data"], $data);
 
                 // membuat array untuk di transfer
-                $result["success"] = "1";
-                $result["message"] = "success";
+                $result["response_status"] = "OK";
+                $result["response_message"] = "success";
                 $this->response($result, 200);
             } else {
-                $result["success"] = "0";
-                $result["message"] = "Password Salah";
+                $result["response_status"] = "0";
+                $result["response_message"] = "Password Salah";
                 $this->response($result, 404);
             }
         } else {
-            $result["success"] = "0";
-            $result["message"] = "Username Salah";
+            $result["response_status"] = "0";
+            $result["response_message"] = "Username Salah";
             $this->response($result, 404);
         }
     }

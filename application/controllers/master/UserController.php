@@ -7,7 +7,7 @@ class UserController extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        if (!$this->session->userdata('username')) {
+        if (!$this->session->userdata('email')) {
             redirect('/');
         }
         $this->load->model('M_crud');
@@ -28,17 +28,17 @@ class UserController extends CI_Controller
     public function store()
     {
         $nama_user  = $this->input->post('nama_user');
-        $username  = $this->input->post('username');
+        $email  = $this->input->post('email');
         $password  = $this->input->post('password');
 
         $this->form_validation->set_rules('nama_user', 'Nama', 'required');
-        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
 
         if ($this->form_validation->run() != false) {
             $data = array(
                 'nama_user'      => $nama_user,
-                'username'      => $username,
+                'email'      => $email,
                 'password'     => password_hash($password, PASSWORD_DEFAULT),
                 'role' => 'Admin'
             );

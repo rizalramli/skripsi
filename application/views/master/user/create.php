@@ -20,9 +20,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="username">Username</label>
-                                <input type="text" name="username" class="form-control form-control-sm" id="username" value="<?php echo set_value('username') ?>">
-                                <span class="text-danger"><?php echo form_error('username'); ?></span>
+                                <label for="email">Email</label>
+                                <input type="text" name="email" class="form-control form-control-sm" id="email" value="<?php echo set_value('email') ?>">
+                                <span class="text-danger"><?php echo form_error('email'); ?></span>
                             </div>
                         </div>
                     </div>

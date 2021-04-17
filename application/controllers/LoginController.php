@@ -15,10 +15,10 @@ class LoginController extends CI_Controller
 
     public function store()
     {
-        $username = $this->input->post('username');
+        $email = $this->input->post('email');
         $password = $this->input->post('password');
         $where    = array(
-            'username'  => $username,
+            'email'  => $email,
         );
 
         $query = $this->M_crud->edit_data($where, 'user');
@@ -28,7 +28,7 @@ class LoginController extends CI_Controller
                 if ($query->row('role') == "Admin") {
                     $data_session = array(
                         'nama_user' => $query->row('nama_user'),
-                        'username' => $query->row('username'),
+                        'email' => $query->row('email'),
                     );
                     $this->session->set_userdata($data_session);
                     redirect('priority');
@@ -41,7 +41,7 @@ class LoginController extends CI_Controller
                 redirect('/');
             }
         } else {
-            $this->session->set_flashdata('username', 'Dilogin');
+            $this->session->set_flashdata('email', 'Dilogin');
             redirect('/');
         }
     }

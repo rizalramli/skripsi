@@ -22,8 +22,8 @@
                         </div>
                         <div class="card card-primary">
                             <h5 class="text-center text-primary mt-4">Skripsi</h5>
-                            <?php if ($this->session->flashdata('username')) : ?>
-                                <div class="cek-username" data-flashdata="<?= $this->session->flashdata('username'); ?>"></div>
+                            <?php if ($this->session->flashdata('email')) : ?>
+                                <div class="cek-email" data-flashdata="<?= $this->session->flashdata('email'); ?>"></div>
                             <?php endif; ?>
                             <?php if ($this->session->flashdata('password')) : ?>
                                 <div class="cek-password" data-flashdata="<?= $this->session->flashdata('password'); ?>"></div>
@@ -36,9 +36,9 @@
                                 <form action="<?php echo base_url('login/store') ?>" method="post">
                                     <div class="form-group">
                                         <div class="d-block">
-                                            <label for="username">Username</label>
+                                            <label for="email">Email</label>
                                         </div>
-                                        <input id="username" type="text" class="form-control form-control-sm" name="username">
+                                        <input id="email" type="text" class="form-control form-control-sm" name="email">
 
                                     </div>
 
@@ -71,12 +71,12 @@
     <!-- panggil assets js -->
     <?php $this->load->view('layouts/js.php'); ?>
     <script>
-        var cek_username = $('.cek-username').data(cek_username);
-        if (cek_username) {
+        var cek_email = $('.cek-email').data(cek_email);
+        if (cek_email) {
             Swal.fire({
                 icon: 'error',
                 title: 'Gagal',
-                text: 'Username anda salah !'
+                text: 'Email anda salah !'
             })
         }
         var cek_password = $('.cek-password').data(cek_password);
