@@ -16,10 +16,10 @@ class Login_api extends REST_Controller
 
     function index_post()
     {
-        $username = $this->input->post('username');
-        $password = $this->input->post('password');
+        $email = $this->post('email');
+        $password = $this->post('password');
         $where    = array(
-            'username'  => $username,
+            'email'  => $email,
         );
 
         $query = $this->M_crud->edit_data($where, 'user');
@@ -32,23 +32,23 @@ class Login_api extends REST_Controller
                 $data = array(
                     'id_user' => $query->row('id_user'),
                     'nama_user' => $query->row('nama_user'),
-                    'username' => $query->row('username'),
+                    'email' => $query->row('email'),
                     'role' => $query->row('role'),
                 );
                 array_push($result["data"], $data);
 
                 // membuat array untuk di transfer
                 $result["response_status"] = "OK";
-                $result["response_message"] = "success";
+                $result["response_message"] = "Sukses Login";
                 $this->response($result, 200);
             } else {
-                $result["response_status"] = "0";
+                $result["response_status"] = "GAGAL";
                 $result["response_message"] = "Password Salah";
                 $this->response($result, 404);
             }
         } else {
-            $result["response_status"] = "0";
-            $result["response_message"] = "Username Salah";
+            $result["response_status"] = "GAGAL";
+            $result["response_message"] = "Belum Punya Akun";
             $this->response($result, 404);
         }
     }
