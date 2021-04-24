@@ -128,7 +128,12 @@ class Priority_api extends REST_Controller
                 $V[$i - 1] = sqrt($dmin[$i - 1]) / (sqrt($dmin[$i - 1]) + sqrt($dplus[$i - 1]));
             }
             $preferensi = round($V[$i - 1], 3);
-            $tampung_array[] = ["nama_barang" => $nama, "nilai" => $preferensi];
+            $explode = explode(",", $nama);
+            $nama_customer = $explode[0];
+            $nama_barang = $explode[2];
+            $jumlah_barang = $explode[3];
+            $nama_barang = substr($nama_barang, 0, -10);
+            $tampung_array[] = ["customer" => $nama_customer, "barang" => $nama_barang, "jumlah" => $jumlah_barang, "nilai" => $preferensi, "detail" => $nama];
         }
 
         // Mengurutkan array dari kecil ke besar
