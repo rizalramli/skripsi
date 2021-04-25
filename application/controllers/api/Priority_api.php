@@ -11,6 +11,7 @@ class Priority_api extends REST_Controller
     function __construct($config = 'rest')
     {
         parent::__construct($config);
+        $this->load->model('M_crud');
     }
 
     function index_get()
@@ -115,35 +116,76 @@ class Priority_api extends REST_Controller
 
         $count_data = 0;
 
-        $i = 0;
-        $V = [];
-        $nama_customer = NULL;
-        $no_hp = NULL;
-        $nama_barang = NULL;
+        $count_data = count($data);
+        if ($count_data > 1) {
+            $i = 0;
+            $V = [];
+            $nama_customer = NULL;
+            $no_hp = NULL;
+            $nama_barang = NULL;
 
-        foreach ($data as $nama => $krit) {
-            ++$i;
+            foreach ($data as $nama => $krit) {
+                ++$i;
 
-            foreach ($kriteria as $k) {
-                $V[$i - 1] = sqrt($dmin[$i - 1]) / (sqrt($dmin[$i - 1]) + sqrt($dplus[$i - 1]));
+                foreach ($kriteria as $k) {
+                    $V[$i - 1] = sqrt($dmin[$i - 1]) / (sqrt($dmin[$i - 1]) + sqrt($dplus[$i - 1]));
+                }
+                $preferensi = round($V[$i - 1], 3);
+                $explode = explode(",", $nama);
+                $nama_customer = $explode[0];
+                $nama_barang = $explode[2];
+                $jumlah_barang = $explode[3];
+                $nama_barang = substr($nama_barang, 0, -10);
+                $tampung_array[] = ["customer" => $nama_customer, "barang" => $nama_barang, "jumlah" => $jumlah_barang, "nilai" => $preferensi, "detail" => $nama];
             }
-            $preferensi = round($V[$i - 1], 3);
-            $explode = explode(",", $nama);
-            $nama_customer = $explode[0];
-            $nama_barang = $explode[2];
-            $jumlah_barang = $explode[3];
-            $nama_barang = substr($nama_barang, 0, -10);
-            $tampung_array[] = ["customer" => $nama_customer, "barang" => $nama_barang, "jumlah" => $jumlah_barang, "nilai" => $preferensi, "detail" => $nama];
-        }
 
-        // Mengurutkan array dari kecil ke besar
-        function cmp($a, $b)
-        {
-            return strcmp($a["nilai"], $b["nilai"]);
+            // Mengurutkan array dari kecil ke besar
+            function cmp($a, $b)
+            {
+                return strcmp($a["nilai"], $b["nilai"]);
+            }
+            usort($tampung_array, "cmp");
+            // Di balik
+            $tampung_array = array_reverse($tampung_array);
+            $result = array();
+            $result["data"] = $tampung_array;
+            $result["response_status"] = "OK";
+            $result["response_message"] = "Berhasil Ambil Data Priority";
+            $this->response($result, 200);
+        } else {
+            $result = array();
+            $result["data"] = array();
+            $result["response_status"] = "Gagal";
+            $result["response_message"] = "Data Minimal 2 Barang";
+            $this->response($result, 404);
         }
-        usort($tampung_array, "cmp");
-        // Di balik
-        $tampung_array = array_reverse($tampung_array);
-        $this->response($tampung_array, 200);
+    }
+
+    public function finishPriority_post()
+    {
+        $data = array(
+            'status_pengerjaan' => 'Selesai',
+        );
+        $where = array(
+            'nama_barang_detail' => $this->post('nama_barang_detail')
+        );
+
+        $this->M_crud->update_data($where, $data, 'detail_transaksi');
+
+        $result = array();
+        $query_default = $this->db->query("SELECT * FROM detail_transaksi WHERE status_pengerjaan='Belum Selesai'");
+        $cek = $query_default->num_rows();
+        if ($cek == 5) {
+            $query_default = $this->db->query("UPDATE detail_transaksi SET status_pengerjaan='Selesai'");
+            $result["data"] = array();
+            $result["response_status"] = "OK";
+            $result["response_message"] = "Sukses Priority";
+            $this->response($result, 200);
+        } else {
+            $result["data"] = array();
+            $result["response_status"] = "OK";
+            $result["response_message"] = "Sukses Priority";
+            $this->response($result, 200);
+        }
     }
 }
