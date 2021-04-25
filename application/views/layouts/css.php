@@ -8,4 +8,5 @@
 <!-- Template CSS -->
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/style.css">
 <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/components.css">
-<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/bootstrap-datetimepicker.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/bootstrap-datetimepicker.min.css"> -->
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/bootstrap-datepicker3.min.css">

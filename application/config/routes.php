@@ -74,6 +74,9 @@ $route['product/(:any)/delete']   = 'master/ProductController/delete/$1';
 $route['calculate']             = 'transaction/CalculateController/index';
 $route['priority']             = 'transaction/CalculateController/priority';
 
+$route['transaction']             = 'transaction/TransactionController/index';
+$route['transaction/grandTotal']             = 'transaction/TransactionController/grandTotal';
+
 $route['user']             = 'master/UserController/index';
 $route['user/create']             = 'master/UserController/create';
 $route['user/store']             = 'master/UserController/store';

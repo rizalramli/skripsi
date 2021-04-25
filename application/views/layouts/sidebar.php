@@ -8,6 +8,9 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Transaction</li>
+            <li <?php if ($this->uri->segment(1) == "transaction") {
+                    echo 'class="active"';
+                } ?>><a class="nav-link" href="<?php echo base_url('transaction'); ?>"> <span class="ml-3">Transaksi</span></a></li>
             <li <?php if ($this->uri->segment(1) == "priority") {
                     echo 'class="active"';
                 } ?>><a class="nav-link" href="<?php echo base_url('priority'); ?>"> <span class="ml-3">Prioritas Order</span></a></li>
