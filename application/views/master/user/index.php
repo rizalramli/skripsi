@@ -15,7 +15,7 @@
                             <tr>
                                 <th width="5%" scope="col">No</th>
                                 <th scope="col">Nama</th>
-                                <th scope="col">Username</th>
+                                <th scope="col">Email</th>
                                 <th scope="col">Role</th>
                                 <th width="15%" scope="col">Action</th>
                             </tr>
@@ -28,7 +28,7 @@
                                 <tr>
                                     <td class="align-middle"><?php echo $i ?></td>
                                     <td class="align-middle"><?php echo $item->nama_user ?></td>
-                                    <td class="align-middle"><?php echo $item->username ?></td>
+                                    <td class="align-middle"><?php echo $item->email ?></td>
                                     <td class="align-middle"><?php echo $item->role ?></td>
                                     <td class="align-middle">
                                         <a onclick="return confirm('Apakah anda yakin ingin menghapus?');" href="<?php echo base_url('user/' . $item->id_user . '/delete') ?>" class="btn btn-sm btn-danger">Hapus</a>

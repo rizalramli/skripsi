@@ -10,18 +10,18 @@ class TransactionController extends CI_Controller
         if (!$this->session->userdata('email')) {
             redirect('/');
         }
+        elseif ($this->session->userdata('role') != 'Kasir') {
+            $this->session->sess_destroy();
+            redirect('/');
+        }
         $this->load->model('M_crud');
     }
 
     public function index()
     {
-        $this->template->load('layouts/app', 'transaction/transaction/index');
+        $this->load->view('transaction/transaction/index');
     }
 
-    // public function priority()
-    // {
-    //     $this->template->load('layouts/app', 'transaction/calculate/priority');
-    // }
     public function grandTotal()
     {
         $sub_total = 0;

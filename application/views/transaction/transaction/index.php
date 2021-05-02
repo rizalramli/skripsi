@@ -1,101 +1,99 @@
-<?php
-if (isset($_POST['simpan'])) {
-    if ($_POST['grand_total'] != " ") {
-        if ($_POST['grand_total'] != 0) {
-            $sql = $this->db->query("SELECT max(id_transaksi) as kode_transaksi FROM transaksi");
-            $kode_faktur = $sql->result_array();
-            if ($kode_faktur) {
-                $nilai = substr($kode_faktur[0]['kode_transaksi'], 1);
-                $kode = (int) $nilai;
-                //tambahkan sebanyak + 1
-                $kode = $kode + 1;
-                $auto_kode = "T" . str_pad($kode, 7, "0",  STR_PAD_LEFT);
-            } else {
-                $auto_kode = "T0000001";
-            }
-            $grand_total_temp = $_POST['grand_total'];
-            $grand_total = (int) preg_replace("/[^0-9]/", "", $grand_total_temp);
-            date_default_timezone_set("Asia/Jakarta");
-            $nama_customer = ucwords(addslashes($_POST['nama_customer']));
-            $no_hp = $_POST['no_hp'];
-            $tgl_pemesanan = date('Y-m-d');
-            $tgl_deadline = date("Y-m-d", strtotime($_POST['tgl_deadline']));
-            $sekarang    = new DateTime($tgl_pemesanan);
-            $deadline       = new DateTime($tgl_deadline);
-            $jarak        = $deadline->diff($sekarang);
-            $selisih = $jarak->format('%d');
-            $waktu_pengerjaan = $selisih;
+<!DOCTYPE html>
+<html lang="en">
 
-            $insert = $this->db->query("INSERT INTO transaksi VALUES('$auto_kode','$tgl_pemesanan','$tgl_deadline','$nama_customer','$no_hp','$grand_total')");
-            if ($insert) {
-                $value_kriteria = [];
-                $tampil_kriteria = $this->db->query("SELECT * FROM kriteria");
-                $count_kriteria = $tampil_kriteria->num_rows();
-
-                $sql2 = $this->db->query("SELECT MAX((SUBSTRING(nama_barang_detail,-10))) as kode_transaksi_2 FROM detail_transaksi");
-                $kode_faktur2 = $sql2->result_array();
-                if ($kode_faktur2) {
-                    $nilai2 = substr($kode_faktur2[0]['kode_transaksi_2'], -10);
-                    $kode2 = (int) $nilai2;
-                    //tambahkan sebanyak + 1
-                    $kode2 = $kode2 + 1;
-                    $auto_kode2 = str_pad($kode2, 10, "0",  STR_PAD_LEFT);
-                } else {
-                    $auto_kode2 = "0000000001";
-                }
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Skripsi</title>
+    <link rel="icon" type="image/png" href="<?php echo base_url('assets/logo/logo.png') ?>">
 
 
-                for ($j = 0; $j < $count_kriteria; $j++) {
-                    $data_kriteria = $tampil_kriteria->result_array();
-                    $id_kriteria = $data_kriteria[$j]['id_kriteria'];
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/download_css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/download_css/all.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/download_css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/download_css/buttons.bootstrap4.min.css">
 
-                    for ($i = 0; $i < count($_POST['id_barang']); $i++) {
+    <!-- CSS Libraries -->
+
+    <!-- Template CSS -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/style.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/components.css">
+    <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/bootstrap-datetimepicker.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/stisla/css/bootstrap-datepicker3.min.css">
+
+</head>
 
 
-                        $id_barang = $_POST['id_barang'][$i];
-                        $nama_barang = $_POST['nama_barang_detail'][$i];
-                        $nama_barang_detail_temp = $nama_customer . "," . $no_hp . "," . $nama_barang . " " . $auto_kode2 . "," . $_POST['qty'][$i];
-                        $nama_barang_detail = addslashes($nama_barang_detail_temp);
-                        $tingkat_kesulitan = $_POST['tingkat_kesulitan'][$i];
-                        $qty_temp =  $_POST['qty'][$i];
-                        $qty = (int) $qty_temp;
-                        $harga_temp = $_POST['harga'][$i];
-                        $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
-                        $value_kriteria = [$tgl_deadline, $waktu_pengerjaan, $harga, $qty, $tingkat_kesulitan];
-                        $insert_detail = $this->db->query("INSERT INTO detail_transaksi (id_detail_transaksi,id_transaksi,id_barang,id_kriteria,nama_barang_detail,value_kriteria,status_pengerjaan) VALUES (NULL,'$auto_kode','$id_barang','$id_kriteria','$nama_barang_detail','$value_kriteria[$j]','Belum Selesai')");
-                    }
-                }
-                if ($insert_detail) {
-                    echo "<script>Swal.fire('Sukses','Transaksi Berhasil','success')
-                            .then(function(){
-                            window.location = window.location = 'admin.php?halaman=transaksi';
-                            });</script>";
-                }
-            }
-        } else {
-            echo "<script>Swal.fire('Gagal','Daftar belanja kosong','error')
-                    .then(function(){
-                    window.location = window.location = 'admin.php?halaman=transaksi';
-                    });</script>";
-        }
-    } else {
-        echo "<script>Swal.fire('Gagal','Daftar belanja kosong','error')
-                    .then(function(){
-                    window.location = window.location = 'admin.php?halaman=transaksi';
-                    });</script>";
-    }
-}
 
-?>
+<body class="layout-3">
+  <div id="app">
+    <div class="main-wrapper container-fluid">
+       <div class="navbar-bg"></div>
+            <nav class="navbar navbar-expand-lg main-navbar">
+                <form class="form-inline mr-auto">
+                    <!-- <h4 class="text-white">Skripsi</h4> -->
+                </form>
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            <img alt="image" src="<?php echo base_url('assets/stisla/icons/avatar-1.png') ?>" class="rounded-circle mr-1">
+                            <div class="d-sm-none d-lg-inline-block">Hi,
+                                <?php echo $this->session->userdata('nama_user'); ?>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item has-icon text-danger" href="" data-toggle="modal" data-target="#exampleModal">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+
+                    </li>
+                </ul>
+            </nav>
+
+      <!-- Main Content -->
+      <div class="main-content">
 <section class="section">
-    <div class="section-header">
-        <h1>Prioritas Order</h1>
-    </div>
-    <div class="container-fluid mt-3">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-12">
+                <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="text-center mb-3">Daftar Barang</h5>
+                                        <div class="row">
+                                            <?php
+                                            $no = 1;
+                                            $query = $this->db->query("SELECT * FROM barang ORDER BY nama_barang ASC");
+                                            $query = $query->result_array();
+                                            foreach ($query as $data) :
+                                                $id_barang = $data['id_barang'];
+                                                $nama_barang = $data['nama_barang'];
+                                                $harga = $data['harga'];
+                                                $tingkat_kesulitan = $data['tingkat_kesulitan'];
+                                            ?>
+                                                <div class="col-md-4 mb-3">
+                                                    <div style="border:1px solid #016CB1" class="card">
+                                                        <div class="card-body">
+                                                            <p style="margin:0" class="text-center">
+                                                                <?php echo $nama_barang ?></p>
+                                                            <p style="margin:0" class="text-center">
+                                                                <?php echo rupiah($harga) ?></p>
+                                                            <div class="text-center">
+                                                                <a onclick="tambah('<?php echo $id_barang ?>','<?php echo addslashes($nama_barang) ?>','<?php echo $harga  ?>','<?php echo $tingkat_kesulitan  ?>')" class="btn btn-sm btn-primary text-white mt-2">Pilih Barang</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="text-center mb-3">Daftar Barang Yang Dibeli</h5>
@@ -159,49 +157,81 @@ if (isset($_POST['simpan'])) {
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="text-center mb-3">Daftar Barang</h5>
-                                <div style="overflow-y: scroll; height:550px; width: auto;">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <?php
-                                            $no = 1;
-                                            $query = $this->db->query("SELECT * FROM barang ORDER BY nama_barang ASC");
-                                            $query = $query->result_array();
-                                            foreach ($query as $data) :
-                                                $id_barang = $data['id_barang'];
-                                                $nama_barang = $data['nama_barang'];
-                                                $harga = $data['harga'];
-                                                $tingkat_kesulitan = $data['tingkat_kesulitan'];
-                                            ?>
-                                                <div class="col-md-4 mb-3">
-                                                    <div style="padding:0" class="card">
-                                                        <div class="card-body">
-                                                            <p style="margin:0" class="text-center">
-                                                                <?php echo $nama_barang ?></p>
-                                                            <p style="margin:0" class="text-center">
-                                                                <?php echo rupiah($harga) ?></p>
-                                                            <div class="text-center">
-                                                                <a onclick="tambah('<?php echo $id_barang ?>','<?php echo addslashes($nama_barang) ?>','<?php echo $harga  ?>','<?php echo $tingkat_kesulitan  ?>')" class="btn btn-sm btn-danger text-white mt-2">Pilih Barang</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            <?php endforeach; ?>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+</div>
+    </div>
+  </div>
+
+    <!-- Modal Logout -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>Apakah anda yakin ingin logout?</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <a href="<?php echo base_url('logout') ?>" class="btn btn-primary">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end modal -->
+    
+
+    <!-- General JS Scripts -->
 <script src="<?php echo base_url(); ?>assets/stisla/js/jquery-3.4.1.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/download_js/popper.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/download_js/bootstrap.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/download_js/jquery.nicescroll.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/download_js/moment.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/download_js/jquery.dataTables.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/download_js/dataTables.bootstrap4.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/js/stisla.js"></script>
+
+<!-- JS Libraies -->
+
+<!-- Template JS File -->
+<script src="<?php echo base_url(); ?>assets/stisla/js/scripts.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/js/custom.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/js/bootstrap-datetimepicker.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/download_js/sweet-alert.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/js/jquery.mask.js"></script>
+<script src="<?php echo base_url(); ?>assets/stisla/js/bootstrap-datepicker.js"></script>
+
+<!-- Agar input tidak ada history -->
+<script>
+    $("form :input").attr("autocomplete", "off");
+</script>
+<!-- Format Rupiah -->
+<script src="<?php echo base_url(); ?>assets/stisla/js/jquery.mask.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('.rupiah').mask('000.000.000', {
+            reverse: true
+        });
+        $('.hp').mask('000000000000000');
+    })
+</script>
+<script>
+    var date = new Date();
+    date.setDate(date.getDate() + 1);
+
+    $('#datepicker').datepicker({
+        startDate: date
+    });
+</script>
 
 <script>
     var count = 0;
@@ -310,3 +340,98 @@ if (isset($_POST['simpan'])) {
         update_sub();
     });
 </script>
+<?php
+if (isset($_POST['simpan'])) {
+    if ($_POST['grand_total'] != " ") {
+        if ($_POST['grand_total'] != 0) {
+            $sql = $this->db->query("SELECT max(id_transaksi) as kode_transaksi FROM transaksi");
+            $kode_faktur = $sql->result_array();
+            if ($kode_faktur) {
+                $nilai = substr($kode_faktur[0]['kode_transaksi'], 1);
+                $kode = (int) $nilai;
+                //tambahkan sebanyak + 1
+                $kode = $kode + 1;
+                $auto_kode = "T" . str_pad($kode, 7, "0",  STR_PAD_LEFT);
+            } else {
+                $auto_kode = "T0000001";
+            }
+            $grand_total_temp = $_POST['grand_total'];
+            $grand_total = (int) preg_replace("/[^0-9]/", "", $grand_total_temp);
+            date_default_timezone_set("Asia/Jakarta");
+            $nama_customer = ucwords(addslashes($_POST['nama_customer']));
+            $no_hp = $_POST['no_hp'];
+            $tgl_pemesanan = date('Y-m-d');
+            $tgl_deadline = date("Y-m-d", strtotime($_POST['tgl_deadline']));
+            $sekarang    = new DateTime($tgl_pemesanan);
+            $deadline       = new DateTime($tgl_deadline);
+            $jarak        = $deadline->diff($sekarang);
+            $selisih = $jarak->format('%d');
+            $waktu_pengerjaan = $selisih;
+
+            $insert = $this->db->query("INSERT INTO transaksi VALUES('$auto_kode','$tgl_pemesanan','$tgl_deadline','$nama_customer','$no_hp','$grand_total')");
+            if ($insert) {
+                $value_kriteria = [];
+                $tampil_kriteria = $this->db->query("SELECT * FROM kriteria");
+                $count_kriteria = $tampil_kriteria->num_rows();
+
+                $sql2 = $this->db->query("SELECT MAX((SUBSTRING(nama_barang_detail,-10))) as kode_transaksi_2 FROM detail_transaksi");
+                $kode_faktur2 = $sql2->result_array();
+                if ($kode_faktur2) {
+                    $nilai2 = substr($kode_faktur2[0]['kode_transaksi_2'], -10);
+                    $kode2 = (int) $nilai2;
+                    //tambahkan sebanyak + 1
+                    $kode2 = $kode2 + 1;
+                    $auto_kode2 = str_pad($kode2, 10, "0",  STR_PAD_LEFT);
+                } else {
+                    $auto_kode2 = "0000000001";
+                }
+
+
+                for ($j = 0; $j < $count_kriteria; $j++) {
+                    $data_kriteria = $tampil_kriteria->result_array();
+                    $id_kriteria = $data_kriteria[$j]['id_kriteria'];
+
+                    for ($i = 0; $i < count($_POST['id_barang']); $i++) {
+
+
+                        $id_barang = $_POST['id_barang'][$i];
+                        $nama_barang = $_POST['nama_barang_detail'][$i];
+                        $nama_barang_detail_temp = $nama_customer . "," . $no_hp . "," . $nama_barang . " " . $auto_kode2 . "," . $_POST['qty'][$i];
+                        $nama_barang_detail = addslashes($nama_barang_detail_temp);
+                        $tingkat_kesulitan = $_POST['tingkat_kesulitan'][$i];
+                        $qty_temp =  $_POST['qty'][$i];
+                        $qty = (int) $qty_temp;
+                        $harga_temp = $_POST['harga'][$i];
+                        $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
+                        $value_kriteria = [$tgl_deadline, $waktu_pengerjaan, $harga, $qty, $tingkat_kesulitan];
+                        $insert_detail = $this->db->query("INSERT INTO detail_transaksi (id_detail_transaksi,id_transaksi,id_barang,id_kriteria,nama_barang_detail,value_kriteria,status_pengerjaan) VALUES (NULL,'$auto_kode','$id_barang','$id_kriteria','$nama_barang_detail','$value_kriteria[$j]','Belum Selesai')");
+                    }
+                }
+                if ($insert_detail) {
+                    $link = base_url('transaction');
+                    echo "<script>Swal.fire('Sukses','Transaksi Berhasil','success')
+                            .then(function(){
+                              window.location.assign('".$link."');
+                            });</script>";
+                }
+            }
+        } else {
+          $link = base_url('transaction');
+            echo "<script>Swal.fire('Gagal','Daftar belanja kosong','error')
+                    .then(function(){
+                    window.location.assign('".$link."');
+                    });</script>";
+        }
+    } else {
+      $link = base_url('transaction');
+        echo "<script>Swal.fire('Gagal','Daftar belanja kosong','error')
+                    .then(function(){
+                    window.location.assign('".$link."');
+                    });</script>";
+    }
+}
+
+?>
+</body>
+
+</html>

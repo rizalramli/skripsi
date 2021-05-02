@@ -10,6 +10,10 @@ class CalculateController extends CI_Controller
         if (!$this->session->userdata('email')) {
             redirect('/');
         }
+        elseif ($this->session->userdata('role') != 'Admin') {
+            $this->session->sess_destroy();
+            redirect('/');
+        }
         $this->load->model('M_crud');
     }
 
