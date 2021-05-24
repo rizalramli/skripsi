@@ -64,6 +64,13 @@ $route['criteria/(:any)/edit']   = 'master/CriteriaController/edit/$1';
 $route['criteria/update']             = 'master/CriteriaController/update';
 $route['criteria/(:any)/delete']   = 'master/CriteriaController/delete/$1';
 
+$route['fabric']             = 'master/FabricController/index';
+$route['fabric/create']             = 'master/FabricController/create';
+$route['fabric/store']             = 'master/FabricController/store';
+$route['fabric/(:any)/edit']   = 'master/FabricController/edit/$1';
+$route['fabric/update']             = 'master/FabricController/update';
+$route['fabric/(:any)/delete']   = 'master/FabricController/delete/$1';
+
 $route['product']             = 'master/ProductController/index';
 $route['product/create']             = 'master/ProductController/create';
 $route['product/store']             = 'master/ProductController/store';

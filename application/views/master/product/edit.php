@@ -7,10 +7,10 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
-                                <h6 class="text-center">Tambah Data</h6>
+                                <h6 class="text-center">Edit Data</h6>
                                 <form action="<?php echo base_url('product/update') ?>" method="post">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -31,7 +31,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <!-- <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="tingkat_kesulitan">Tingkat Kesulitan</label>
@@ -54,6 +54,19 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    </div> -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="fabric">Jenis Kain</label>
+                                                <select name="fabric" id="fabric" class="form-control form-control-sm">
+                                                    <?php foreach($fabric as $f):
+                                                    ?>
+                                                        <option value="<?= $f->id_jenis_kain ?>" <?php if($f->id_jenis_kain == $item->id_jenis_kain){echo"selected";}  ?>><?= $f->nama_jenis_kain ?></option>
+                                                    <?php endforeach; ?> 
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
@@ -67,13 +80,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h6 class="text-center">Foto Product</h6>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

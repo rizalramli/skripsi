@@ -65,13 +65,13 @@
                                         <div class="row">
                                             <?php
                                             $no = 1;
-                                            $query = $this->db->query("SELECT * FROM barang ORDER BY nama_barang ASC");
+                                            $query = $this->db->query("SELECT * FROM barang JOIN jenis_kain USING(id_jenis_kain) ORDER BY nama_barang ASC");
                                             $query = $query->result_array();
                                             foreach ($query as $data) :
                                                 $id_barang = $data['id_barang'];
                                                 $nama_barang = $data['nama_barang'];
+                                                $nama_jenis_kain = $data['nama_jenis_kain'];
                                                 $harga = $data['harga'];
-                                                $tingkat_kesulitan = $data['tingkat_kesulitan'];
                                             ?>
                                                 <div class="col-md-4 mb-3">
                                                     <div style="border:1px solid #016CB1" class="card">
@@ -79,9 +79,11 @@
                                                             <p style="margin:0" class="text-center">
                                                                 <?php echo $nama_barang ?></p>
                                                             <p style="margin:0" class="text-center">
+                                                                <?php echo "(".$nama_jenis_kain.")" ?></p>
+                                                            <p style="margin:0" class="text-center">
                                                                 <?php echo rupiah($harga) ?></p>
                                                             <div class="text-center">
-                                                                <a onclick="tambah('<?php echo $id_barang ?>','<?php echo addslashes($nama_barang) ?>','<?php echo $harga  ?>','<?php echo $tingkat_kesulitan  ?>')" class="btn btn-sm btn-primary text-white mt-2">Pilih Barang</a>
+                                                                <a onclick="tambah('<?php echo $id_barang ?>','<?php echo addslashes($nama_barang) ?>','<?php echo $harga  ?>')" class="btn btn-sm btn-primary text-white mt-2">Pilih Barang</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -103,8 +105,9 @@
                                             <tr>
                                                 <td class="text-left" width="36%">Nama</td>
                                                 <td class="text-center" width="15%">Qty</td>
-                                                <td class="text-right" width="22%">Harga</td>
-                                                <td class="text-right" width="22%">Sub Total</td>
+                                                <!-- <td class="text-right" width="22%">Harga</td>
+                                                <td class="text-right" width="22%">Sub Total</td> -->
+                                                <td class="text-center" width="44%">Kain</td>
                                                 <td class="text-right" width="5%">&nbsp</td>
                                             </tr>
                                         </thead>
@@ -133,13 +136,13 @@
                                                 <input type="text" class="form-control form-control-sm hp" name="no_hp" required>
                                             </div>
                                             <div class="col-md-6 mt-2">
-                                                Tanggal Deadline
+                                                DP
                                             </div>
                                             <div class="col-md-6 mt-2">
                                                 Grand Total
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" id="datepicker" class="form-control form-control-sm" name="tgl_deadline" required>
+                                                <input type="text" class="form-control form-control-sm rupiah" name="dp" required>
                                             </div>
                                             <div class="col-md-6">
                                                 <input type="text" class="form-control form-control-sm rupiah text-right" name="grand_total" id="grand_total" value=" " readonly>
@@ -237,7 +240,7 @@
     var count = 0;
     var jumlah_detail = 0;
 
-    function tambah(kode, nama, harga, tingkat_kesulitan) {
+    function tambah(kode, nama, harga) {
         // You can't define php variables in java script as $course etc.
         $('#detail_list').append(`
 
@@ -247,8 +250,6 @@
             `
                         <input type="hidden" name="id_barang[]" class="form-control form-control-sm" id="kode_barang` +
             count + `" value="` + kode + `">
-        <input type="hidden" name="tingkat_kesulitan[]" class="form-control form-control-sm" id="kode_barang` +
-            count + `" value="` + tingkat_kesulitan + `">
         <input type="hidden" name="nama_barang_detail[]" class="form-control form-control-sm" id="kode_barang` +
             count + `" value="` + nama + `">
                     </td>
@@ -256,14 +257,21 @@
                         <input type="text" name="qty[]" class="form-control form-control-sm qty hp" id="qty` + count +
             `" value="1" required>
                     </td>
-                    <td>
-                        <input type="text" name="harga[]" class="form-control form-control-sm rupiah text-right" id="harga` +
+                    
+                        <input type="hidden" name="harga[]" class="form-control form-control-sm rupiah text-right" id="harga` +
             count + `" placeholder="Harga Tindakan BP" required value="` + harga + `" readonly>
+                        <input type="hidden" class="form-control form-control-sm rupiah text-right" id="sub_total` +
+            count +`" readonly required value="` + harga + `">
+                    <td>
+                        <select name="kain[]" class="form-control form-control-sm" required>
+                            <option value="">-- Pilih Status Kain --</option>
+                            <option value="1">Sangat Mudah</option>
+                            <option value="2">Mudah</option>
+                            <option value="3">Sedang</option>
+                            <option value="4">Sulit</option>
+                            <option value="5">Sangat Sulit</option>
+                        </select>
                     </td>
-                    <td>  
-                        <input type="text" class="form-control form-control-sm rupiah text-right" id="sub_total` +
-            count +
-            `" readonly required value="` + harga + `"></td>
                     <td>
                         <div class="form-group col-sm-2">
                             <a id="` + count + `" href="#" class="btn btn-sm btn-danger btn-icon-split remove_baris">x
@@ -356,19 +364,22 @@ if (isset($_POST['simpan'])) {
                 $auto_kode = "T0000001";
             }
             $grand_total_temp = $_POST['grand_total'];
+            $dp = $_POST['dp'];
+            $dp = (int) preg_replace("/[^0-9]/", "", $dp);
+            $dp = $dp / count($_POST['id_barang']);
             $grand_total = (int) preg_replace("/[^0-9]/", "", $grand_total_temp);
             date_default_timezone_set("Asia/Jakarta");
             $nama_customer = ucwords(addslashes($_POST['nama_customer']));
             $no_hp = $_POST['no_hp'];
             $tgl_pemesanan = date('Y-m-d');
-            $tgl_deadline = date("Y-m-d", strtotime($_POST['tgl_deadline']));
-            $sekarang    = new DateTime($tgl_pemesanan);
-            $deadline       = new DateTime($tgl_deadline);
-            $jarak        = $deadline->diff($sekarang);
-            $selisih = $jarak->format('%d');
-            $waktu_pengerjaan = $selisih;
+            // $tgl_deadline = date("Y-m-d", strtotime($_POST['tgl_deadline']));
+            // $sekarang    = new DateTime($tgl_pemesanan);
+            // $deadline       = new DateTime($tgl_deadline);
+            // $jarak        = $deadline->diff($sekarang);
+            // $selisih = $jarak->format('%d');
+            // $waktu_pengerjaan = $selisih;
 
-            $insert = $this->db->query("INSERT INTO transaksi VALUES('$auto_kode','$tgl_pemesanan','$tgl_deadline','$nama_customer','$no_hp','$grand_total')");
+            $insert = $this->db->query("INSERT INTO transaksi VALUES('$auto_kode','$tgl_pemesanan','$nama_customer','$no_hp','$grand_total')");
             if ($insert) {
                 $value_kriteria = [];
                 $tampil_kriteria = $this->db->query("SELECT * FROM kriteria");
@@ -398,12 +409,13 @@ if (isset($_POST['simpan'])) {
                         $nama_barang = $_POST['nama_barang_detail'][$i];
                         $nama_barang_detail_temp = $nama_customer . "," . $no_hp . "," . $nama_barang . " " . $auto_kode2 . "," . $_POST['qty'][$i];
                         $nama_barang_detail = addslashes($nama_barang_detail_temp);
-                        $tingkat_kesulitan = $_POST['tingkat_kesulitan'][$i];
+                        $kain = $_POST['kain'][$i];
                         $qty_temp =  $_POST['qty'][$i];
                         $qty = (int) $qty_temp;
                         $harga_temp = $_POST['harga'][$i];
                         $harga = (int) preg_replace("/[^0-9]/", "", $harga_temp);
-                        $value_kriteria = [$tgl_deadline, $waktu_pengerjaan, $harga, $qty, $tingkat_kesulitan];
+                        // $value_kriteria = [$tgl_deadline, $waktu_pengerjaan, $harga, $qty, $tingkat_kesulitan];
+                        $value_kriteria = [$kain, $dp, $qty];
                         $insert_detail = $this->db->query("INSERT INTO detail_transaksi (id_detail_transaksi,id_transaksi,id_barang,id_kriteria,nama_barang_detail,value_kriteria,status_pengerjaan) VALUES (NULL,'$auto_kode','$id_barang','$id_kriteria','$nama_barang_detail','$value_kriteria[$j]','Belum Selesai')");
                     }
                 }

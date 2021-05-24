@@ -19,21 +19,27 @@ class ProductController extends CI_Controller
 
     public function index()
     {
-        $table = 'barang';
-        $data['items'] = $this->M_crud->tampil_data($table)->result();
+        // $table = 'barang';
+        $data['items'] = $this->db->query("SELECT * FROM barang JOIN jenis_kain USING(id_jenis_kain)")->result();
         $this->template->load('layouts/app', 'master/product/index', $data);
     }
 
     public function create()
     {
-        $this->template->load('layouts/app', 'master/product/create');
+        $table = 'jenis_kain';
+        $data['fabric'] = $this->M_crud->tampil_data($table)->result();
+        $this->template->load('layouts/app', 'master/product/create',$data);
     }
 
     public function store()
     {
         $nama  = $this->input->post('nama');
         $harga  = $this->input->post('harga');
-        $tingkat_kesulitan  = $this->input->post('tingkat_kesulitan');
+        $fabric  = $this->input->post('fabric');
+        // $tingkat_kesulitan  = $this->input->post('tingkat_kesulitan');
+        $where = array('id_jenis_kain' => $fabric);
+        $kain = $this->M_crud->edit_data($where, 'jenis_kain')->row();
+        
 
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
@@ -41,8 +47,9 @@ class ProductController extends CI_Controller
         if ($this->form_validation->run() != false) {
             $data = array(
                 'nama_barang'      => $nama,
+                'id_jenis_kain' => $fabric,
                 'harga'      => $harga,
-                'tingkat_kesulitan'     => $tingkat_kesulitan,
+                'tingkat_kesulitan'     => $kain->bobot_jenis_kain,
             );
             $this->M_crud->input_data($data, 'barang');
             redirect('product');
@@ -54,6 +61,8 @@ class ProductController extends CI_Controller
     public function edit($id)
     {
         $where = array('id_barang' => $id);
+        $table = 'jenis_kain';
+        $data['fabric'] = $this->M_crud->tampil_data($table)->result();
         $data['item'] = $this->M_crud->edit_data($where, 'barang')->row();
 
         $this->template->load('layouts/app', 'master/product/edit', $data);
@@ -64,7 +73,7 @@ class ProductController extends CI_Controller
         $id_barang  = $this->input->post('id_barang');
         $nama  = $this->input->post('nama');
         $harga  = $this->input->post('harga');
-        $tingkat_kesulitan  = $this->input->post('tingkat_kesulitan');
+        // $tingkat_kesulitan  = $this->input->post('tingkat_kesulitan');
 
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('harga', 'Harga', 'required');
@@ -73,14 +82,19 @@ class ProductController extends CI_Controller
             'id_barang' => $id_barang,
         );
         $data['item'] = $this->M_crud->edit_data($where, 'barang')->row();
+
+        $table = 'jenis_kain';
+        $data['fabric'] = $this->M_crud->tampil_data($table)->result();
         // 
+
+        $fabric  = $this->input->post('fabric');
 
         if ($this->form_validation->run() != false) {
 
             $data = array(
+                'id_jenis_kain'      => $fabric,
                 'nama_barang'      => $nama,
                 'harga'      => $harga,
-                'tingkat_kesulitan'     => $tingkat_kesulitan,
             );
             $where = array(
                 'id_barang' => $id_barang

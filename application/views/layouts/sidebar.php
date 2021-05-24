@@ -22,6 +22,9 @@
             <li <?php if ($this->uri->segment(1) == "product") {
                     echo 'class="active"';
                 } ?>><a class="nav-link" href="<?php echo base_url('product'); ?>"> <span class="ml-3">Barang</span></a></li>
+            <li <?php if ($this->uri->segment(1) == "fabric") {
+                    echo 'class="active"';
+                } ?>><a class="nav-link" href="<?php echo base_url('fabric'); ?>"> <span class="ml-3">Jenis Kain</span></a></li>
             <li <?php if ($this->uri->segment(1) == "user") {
                     echo 'class="active"';
                 } ?>><a class="nav-link" href="<?php echo base_url('user'); ?>"> <span class="ml-3">User</span></a></li>

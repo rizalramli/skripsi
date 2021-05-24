@@ -232,7 +232,7 @@
                                         foreach ($kriteria as $k) {
                                             $y[$k][$i - 1] = round(($krit[$k] / sqrt($nilai_kuadrat[$k])), 3) * $bobot[$k];
                                         ?>
-                                            <td class="text-center"><?php echo $y[$k][$i - 1] ?></td>
+                                            <td class="text-center"><?php echo round($y[$k][$i - 1],3) ?></td>
                                         <?php
                                         }
                                         ?>
@@ -293,7 +293,7 @@
                                         } else {
                                             $yplus[$k] = ([$k] ? min($y[$k]) : max($y[$k]));
                                         }
-                                        echo "<th>$yplus[$k]</th>";
+                                        echo "<th>".round($yplus[$k],3)."</th>";
                                     }
                                     ?>
                                 </tr>
@@ -350,7 +350,7 @@
                                         } else {
                                             $ymin[$k] = [$k] ? min($y[$k]) : max($y[$k]);
                                         }
-                                        echo "<th>{$ymin[$k]}</th>";
+                                        echo "<th>".round($ymin[$k],3)."</th>";
                                     }
 
                                     ?>
@@ -515,7 +515,9 @@
                                         <td><?php echo stripcslashes($nama_customer) ?></td>
                                         <?php
                                         foreach ($kriteria as $k) {
-                                            $V[$i - 1] = sqrt($dmin[$i - 1]) / (sqrt($dmin[$i - 1]) + sqrt($dplus[$i - 1]));
+                                            $dminPrefensi = round(sqrt($dmin[$i - 1]),3);
+                                            $dplusPrefensi = round(sqrt($dplus[$i - 1]),3);
+                                            $V[$i - 1] = $dminPrefensi / ($dminPrefensi + $dplusPrefensi);
                                         }
                                         $preferensi = round($V[$i - 1], 3);
                                         ?>

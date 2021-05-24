@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="row">
-                    <div class="col-md-8">
+                    <div class="col-md-12">
                         <div class="card">
                             <div class="card-body">
                                 <h6 class="text-center">Tambah Data</h6>
@@ -33,13 +33,12 @@
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label for="tingkat_kesulitan">Tingkat Kesulitan</label>
-                                                <select name="tingkat_kesulitan" id="tingkat_kesulitan" class="form-control form-control-sm">
-                                                    <option value="1">Mudah</option>
-                                                    <option value="2">Sangat Mudah</option>
-                                                    <option value="3">Sedang</option>
-                                                    <option value="4">Sulit</option>
-                                                    <option value="5">Sangat Sulit</option>
+                                                <label for="fabric">Jenis Kain</label>
+                                                <select name="fabric" id="fabric" class="form-control form-control-sm">
+                                                    <?php foreach($fabric as $f):
+                                                    ?>
+                                                        <option value="<?= $f->id_jenis_kain ?>"><?= $f->nama_jenis_kain ?></option>
+                                                    <?php endforeach; ?> 
                                                 </select>
                                             </div>
                                         </div>
@@ -56,13 +55,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <div class="card">
                             <div class="card-body">
                                 <h6 class="text-center">Foto Product</h6>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>
