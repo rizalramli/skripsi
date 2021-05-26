@@ -34,17 +34,20 @@ class UserController extends CI_Controller
         $nama_user  = $this->input->post('nama_user');
         $email  = $this->input->post('email');
         $password  = $this->input->post('password');
+        $role  = $this->input->post('role');
 
         $this->form_validation->set_rules('nama_user', 'Nama', 'required');
         $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('password', 'Password', 'required');
+        $this->form_validation->set_rules('role', 'Akses', 'required');
+
 
         if ($this->form_validation->run() != false) {
             $data = array(
                 'nama_user'      => $nama_user,
                 'email'      => $email,
                 'password'     => password_hash($password, PASSWORD_DEFAULT),
-                'role' => 'Admin'
+                'role' => $role
             );
             $this->M_crud->input_data($data, 'user');
             redirect('user');

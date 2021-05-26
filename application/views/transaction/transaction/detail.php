@@ -6,19 +6,18 @@
     <div class="section-body">
         <div class="card">
             <div class="card-header">
+                <a class="btn btn-primary" href="<?php echo base_url('transaction') ?>">Kembali</a>
             </div>
             <div class="card-body">
+                <h6 class="text-center">Nama Customer : <?= $item->nama_customer." (".$item->no_hp.")" ?></h6>
                 <div class="table-responsive">
                     <table width="100%" class="table table-striped dataTables">
                         <thead>
                             <tr>
                                 <th width="5%" scope="col">No</th>
+                                <th scope="col">Nama Barang</th>
+                                <th scope="col">Qty</th>
                                 <th scope="col">Status</th>
-                                <th scope="col">Tanggal Order</th>
-                                <th scope="col">Nama</th>
-                                <th scope="col">HP</th>
-                                <th scope="col">DP</th>
-                                <th scope="col">Total</th>
                                 <th width="20%" scope="col">Action</th>
                             </tr>
                         </thead>
@@ -29,9 +28,11 @@
                             ?>
                                 <tr>
                                     <td class="align-middle"><?php echo $i ?></td>
+                                    <td class="align-middle"><?php echo $item->nama_barang." (".$item->nama_jenis_kain.")" ?></td>
+                                    <td class="align-middle"><?php echo $item->value_kriteria ?></td>
                                     <td class="align-middle">
                                         <?php 
-                                        if($item->status_transaksi == 'Belum'){
+                                        if($item->status_pengerjaan == 'Belum Selesai'){
                                             echo '<span class="badge badge-danger">Belum</span>';
                                         }
                                         else{
@@ -39,15 +40,8 @@
                                         }
                                         ?>
                                     </td>
-                                    <td class="align-middle"><?php echo date('d-m-Y',strtotime($item->tgl_transaksi)) ?></td>
-                                    <td class="align-middle"><?php echo $item->nama_customer ?></td>
-                                    <td class="align-middle"><?php echo $item->no_hp ?></td>
-                                    <td class="align-middle text-right"><?php echo rupiah($item->down_payment) ?></td>
-                                    <td class="align-middle text-right"><?php echo rupiah($item->total_harga) ?></td>
                                     <td class="align-middle">
-                                        <a href="<?php echo base_url('transaction/' . $item->id_transaksi . '/edit') ?>" class="btn btn-sm btn-warning">Edit</a>
-                                        <a href="<?php echo base_url('transaction/' . $item->id_transaksi . '/detail') ?>" class="btn btn-sm btn-primary">Detail</a>
-                                        <a onclick="return confirm('Apakah anda yakin ingin menghapus?');" href="<?php echo base_url('transaction/' . $item->id_transaksi . '/delete') ?>" class="btn btn-sm btn-danger">Hapus</a>
+                                        <a href="<?php echo base_url('transaction/' . $item->id_detail_transaksi . '/edit_detail') ?>" class="btn btn-sm btn-warning">Edit</a>
                                     </td>
                                 </tr>
                             <?php

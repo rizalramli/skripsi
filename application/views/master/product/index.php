@@ -29,7 +29,7 @@
                                     <td class="align-middle"><?php echo $i ?></td>
                                     <td class="align-middle"><?php echo $item->nama_barang ?></td>
                                     <td class="align-middle"><?php echo $item->nama_jenis_kain ?></td>
-                                    <td class="align-middle"><?php echo $item->harga ?></td>
+                                    <td class="align-middle text-right"><?php echo rupiah($item->harga) ?></td>
                                     <td class="align-middle">
                                         <a href="<?php echo base_url('product/' . $item->id_barang . '/edit') ?>" class="btn btn-sm btn-warning">Edit</a>
                                         <a onclick="return confirm('Apakah anda yakin ingin menghapus?');" href="<?php echo base_url('product/' . $item->id_barang . '/delete') ?>" class="btn btn-sm btn-danger">Hapus</a>

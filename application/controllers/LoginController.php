@@ -38,7 +38,7 @@ class LoginController extends CI_Controller
                     }
                     elseif($query->row('role') == 'Kasir')
                     {
-                        redirect('transaction');
+                        redirect('cashier');
                     }
                 } else {
                     $this->session->set_flashdata('akses', 'Diakses');

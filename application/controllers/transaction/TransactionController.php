@@ -10,7 +10,7 @@ class TransactionController extends CI_Controller
         if (!$this->session->userdata('email')) {
             redirect('/');
         }
-        elseif ($this->session->userdata('role') != 'Kasir') {
+        elseif ($this->session->userdata('role') != 'Admin') {
             $this->session->sess_destroy();
             redirect('/');
         }
@@ -19,34 +19,113 @@ class TransactionController extends CI_Controller
 
     public function index()
     {
-        $this->load->view('transaction/transaction/index');
+        $data['items'] = $this->db->query('SELECT * FROM transaksi ORDER BY tgl_transaksi DESC')->result();
+        $this->template->load('layouts/app', 'transaction/transaction/index', $data);
     }
 
-    public function grandTotal()
+    public function edit($id)
     {
-        $sub_total = 0;
-        $total = 0;
+        $where = array('id_transaksi' => $id);
+        $data['item'] = $this->M_crud->edit_data($where, 'transaksi')->row();
 
-        if (isset($_POST['id_barang']) && isset($_POST['qty']) && isset($_POST['harga'])) {
+        $this->template->load('layouts/app', 'transaction/transaction/edit', $data);
+    }
 
-            for ($i = 0; $i < count($_POST['id_barang']); $i++) {
+    public function update()
+    {
+        $id_transaksi  = $this->input->post('id_transaksi');
+        $down_payment  = (int) preg_replace("/[^0-9]/", "", $this->input->post('down_payment'));
 
-                $harga_jual_temp = $_POST['harga'][$i];
-                $harga_jual = (int) preg_replace("/[^0-9]/", "", $harga_jual_temp);
+        $this->form_validation->set_rules('down_payment', 'DP', 'required');
 
-                $qty_temp =  $_POST['qty'][$i];
-                $qty = (int) $qty_temp;
+        $where = array(
+            'id_transaksi' => $id_transaksi,
+        ); 
 
-                $perhitungan = $harga_jual * $qty;
+        $data['item'] = $this->M_crud->edit_data($where, 'transaksi')->row();
 
-                $sub_total = $sub_total + $perhitungan;
-            }
+        if ($this->form_validation->run() != false) {
 
-            $total = $sub_total;
+            $data = array(
+                'down_payment' => $down_payment,
+            );
+            $where = array(
+                'id_transaksi' => $id_transaksi
+            );
+ 
+            $this->M_crud->update_data($where, $data, 'transaksi');
+            
+            $this->db->select('*');
+            $this->db->from('detail_transaksi');
+            $this->db->where('detail_transaksi.id_transaksi', $id_transaksi);
+            $this->db->where('detail_transaksi.id_kriteria', 6);
+            $count = $this->db->count_all_results();
+
+            $data = array(
+                'value_kriteria' => $down_payment / $count,
+            );
+            $where = array(
+                'id_transaksi' => $id_transaksi,
+                'id_kriteria' => 6
+            );
+ 
+            $this->M_crud->update_data($where, $data, 'detail_transaksi');
+
+            redirect('transaction');
+
+        } else {
+            $this->template->load('layouts/app', 'transaction/transaction/edit', $data);
         }
-        if ($total == 0) {
-            $total = " ";
-        }
-        echo $total;
+    }
+
+    public function detail($id)
+    {
+        $where = array('id_transaksi' => $id);
+        $data['item'] = $this->M_crud->edit_data($where, 'transaksi')->row();
+        $this->db->select('*');
+        $this->db->from('detail_transaksi');
+        $this->db->join('barang', 'detail_transaksi.id_barang = barang.id_barang');
+        $this->db->join('jenis_kain', 'barang.id_jenis_kain = jenis_kain.id_jenis_kain');
+        $this->db->where('detail_transaksi.id_transaksi', $id);
+        $this->db->where('detail_transaksi.id_kriteria', 7);
+        $query = $this->db->get();
+        $data['items'] = $query->result();
+        $this->template->load('layouts/app', 'transaction/transaction/detail', $data);
+    }
+
+    public function edit_detail($id)
+    {
+        $where = array('id_detail_transaksi' => $id);
+        $detail = $this->M_crud->edit_data($where, 'detail_transaksi')->row();
+        $id_transaksi = $detail->id_transaksi;
+        // $where = array('id_transaksi' => $id_transaksi,'id_kriteria' => 5);
+        // $data['item'] = $this->M_crud->edit_data($where, 'detail_transaksi')->row();
+        $this->db->select('*');
+        $this->db->from('detail_transaksi');
+        $this->db->join('barang', 'detail_transaksi.id_barang = barang.id_barang');
+        $this->db->join('jenis_kain', 'barang.id_jenis_kain = jenis_kain.id_jenis_kain');
+        $this->db->where('detail_transaksi.id_transaksi', $id_transaksi);
+        $this->db->where('detail_transaksi.id_kriteria', 5);
+        $query = $this->db->get();
+        $data['item'] = $query->row();
+
+        $this->template->load('layouts/app', 'transaction/transaction/edit_detail', $data);
+    }
+
+    public function update_detail()
+    {
+        $id_detail_transaksi  = $this->input->post('id_detail_transaksi');
+        $kain  = $this->input->post('kain');
+
+        $data = array(
+            'value_kriteria' => $kain,
+        );
+        $where = array(
+            'id_detail_transaksi' => $id_detail_transaksi
+        );
+
+        $this->M_crud->update_data($where, $data, 'detail_transaksi');
+        redirect('transaction');
+        
     }
 }

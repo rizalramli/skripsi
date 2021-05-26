@@ -38,6 +38,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label for="role">Akses</label>
+                                <input type="text" name="role" class="form-control form-control-sm" id="role" value="<?php echo set_value('role') ?>">
+                                <span class="text-danger"><?php echo form_error('role'); ?></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                                 <a href="<?php echo base_url('user') ?>" class="btn btn-default">Batal</a>
                             </div>

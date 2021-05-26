@@ -14,6 +14,9 @@
             <li <?php if ($this->uri->segment(1) == "calculate") {
                     echo 'class="active"';
                 } ?>><a class="nav-link" href="<?php echo base_url('calculate'); ?>"> <span class="ml-3">Perhitungan</span></a></li>
+            <li <?php if ($this->uri->segment(1) == "transaction") {
+                    echo 'class="active"';
+                } ?>><a class="nav-link" href="<?php echo base_url('transaction'); ?>"> <span class="ml-3">Transaksi</span></a></li>
 
             <li class="menu-header">Master</li>
             <li <?php if ($this->uri->segment(1) == "criteria") {

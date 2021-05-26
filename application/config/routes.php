@@ -82,7 +82,15 @@ $route['calculate']             = 'transaction/CalculateController/index';
 $route['priority']             = 'transaction/CalculateController/priority';
 
 $route['transaction']             = 'transaction/TransactionController/index';
-$route['transaction/grandTotal']             = 'transaction/TransactionController/grandTotal';
+$route['transaction/(:any)/edit']   = 'transaction/TransactionController/edit/$1';
+$route['transaction/update']             = 'transaction/TransactionController/update';
+$route['transaction/(:any)/detail']   = 'transaction/TransactionController/detail/$1';
+$route['transaction/(:any)/edit_detail']   = 'transaction/TransactionController/edit_detail/$1';
+$route['transaction/update_detail']             = 'transaction/TransactionController/update_detail';
+
+
+$route['cashier']             = 'transaction/CashierController/cashier';
+$route['cashier/grandTotal']             = 'transaction/CashierController/grandTotal';
 
 $route['user']             = 'master/UserController/index';
 $route['user/create']             = 'master/UserController/create';
