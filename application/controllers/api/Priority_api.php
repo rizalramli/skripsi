@@ -147,6 +147,8 @@ class Priority_api extends REST_Controller
             usort($tampung_array, "cmp");
             // Di balik
             $tampung_array = array_reverse($tampung_array);
+            $keys = array_column($tampung_array, 'nilai');
+            array_multisort($keys, SORT_DESC, $tampung_array);
             $result = array();
             $result["data"] = $tampung_array;
             $result["response_status"] = "OK";

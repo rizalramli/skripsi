@@ -56,6 +56,62 @@ class UserController extends CI_Controller
         }
     }
 
+    public function edit($id)
+    {
+        $where = array('id_user' => $id);
+        $data['item'] = $this->M_crud->edit_data($where, 'user')->row();
+
+        $this->template->load('layouts/app', 'master/user/edit', $data);
+    }
+
+    public function update()
+    {
+        $id_user  = $this->input->post('id_user');
+        $nama_user  = $this->input->post('nama_user');
+        $email  = $this->input->post('email');
+        $role  = $this->input->post('role');
+        $password  = $this->input->post('password');
+        
+
+        $this->form_validation->set_rules('nama_user', 'Nama', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
+        $this->form_validation->set_rules('role', 'Akses', 'required');
+
+        $where = array(
+            'id_user' => $id_user,
+        );
+        $data['item'] = $this->M_crud->edit_data($where, 'user')->row();
+        // 
+        if($password == null || $password == '')
+        {
+            $password = $data['item']->password;
+        }
+        else 
+        {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        if ($this->form_validation->run() != false) {
+
+            $data = array(
+                'nama_user' => $nama_user,
+                'email' => $email,
+                'password' => $password,
+                'role' => $role,
+            );
+            $where = array(
+                'id_user' => $id_user
+            );
+
+            $this->M_crud->update_data($where, $data, 'user');
+
+
+            redirect('user');
+        } else {
+            $this->template->load('layouts/app', 'master/user/edit', $data);
+        }
+    }
+
 
     public function delete($id)
     {

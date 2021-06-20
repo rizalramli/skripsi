@@ -22,7 +22,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Simpan</button>
-                                <a href="<?php echo base_url('criteria') ?>" class="btn btn-default">Batal</a>
+                                <a href="<?php echo base_url('fabric') ?>" class="btn btn-default">Batal</a>
                             </div>
                         </div>
                     </div>

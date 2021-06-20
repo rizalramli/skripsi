@@ -65,7 +65,7 @@
                                         <div class="row">
                                             <?php
                                             $no = 1;
-                                            $query = $this->db->query("SELECT * FROM barang JOIN jenis_kain USING(id_jenis_kain) ORDER BY nama_barang ASC");
+                                            $query = $this->db->query("SELECT * FROM barang JOIN jenis_kain USING(id_jenis_kain) ORDER BY id_barang ASC");
                                             $query = $query->result_array();
                                             foreach ($query as $data) :
                                                 $id_barang = $data['id_barang'];
@@ -246,7 +246,7 @@
 
                 <tr id="row` + count + `" class="kelas_row">
                     <td>
-                        ` + nama +
+                        ` + nama + " (" + jenis_kain + ")" +
             `
                         <input type="hidden" name="id_barang[]" class="form-control form-control-sm" id="kode_barang` +
             count + `" value="` + kode + `">

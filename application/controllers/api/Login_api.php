@@ -36,12 +36,21 @@ class Login_api extends REST_Controller
                     'role' => $query->row('role'),
                 );
                 array_push($result["data"], $data);
-
-                // membuat array untuk di transfer
-                $result["response_status"] = "OK";
-                $result["response_message"] = "Sukses Login";
-                $this->response($result, 200);
-            } else {
+                if($query->row('role') == 'Pemilik')
+                {
+                    // membuat array untuk di transfer
+                    $result["response_status"] = "OK";
+                    $result["response_message"] = "Sukses Login";
+                    $this->response($result, 200);
+                }
+                else 
+                {
+                    $result["response_status"] = "GAGAL";
+                    $result["response_message"] = "Hak akses anda bukan pemilik";
+                    $this->response($result, 404);
+                }
+            }
+            else {
                 $result["response_status"] = "GAGAL";
                 $result["response_message"] = "Password Salah";
                 $this->response($result, 404);

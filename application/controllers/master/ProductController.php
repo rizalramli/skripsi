@@ -37,8 +37,6 @@ class ProductController extends CI_Controller
         $harga  = $this->input->post('harga');
         $fabric  = $this->input->post('fabric');
         // $tingkat_kesulitan  = $this->input->post('tingkat_kesulitan');
-        $where = array('id_jenis_kain' => $fabric);
-        $kain = $this->M_crud->edit_data($where, 'jenis_kain')->row();
         
 
         $this->form_validation->set_rules('nama', 'Nama', 'required');
@@ -49,7 +47,6 @@ class ProductController extends CI_Controller
                 'nama_barang'      => $nama,
                 'id_jenis_kain' => $fabric,
                 'harga'      => $harga,
-                'tingkat_kesulitan'     => $kain->bobot_jenis_kain,
             );
             $this->M_crud->input_data($data, 'barang');
             redirect('product');

@@ -1,10 +1,7 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="">TOPSIS</a>
-        </div>
-        <div class="sidebar-brand sidebar-brand-sm">
-            <a href="dashboard-ecommerce.html">St</a>
+            <a class="text-primary" style="font-style: italic;" href="<?php echo base_url('priority'); ?>">LILIK Collection</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Transaction</li>

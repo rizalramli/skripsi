@@ -17,7 +17,7 @@
                                 <th width="5%" scope="col">No</th>
                                 <th scope="col">Nama Barang</th>
                                 <th scope="col">Qty</th>
-                                <th scope="col">Status</th>
+                                <!-- <th scope="col">Status</th> -->
                                 <th width="20%" scope="col">Action</th>
                             </tr>
                         </thead>
@@ -30,7 +30,7 @@
                                     <td class="align-middle"><?php echo $i ?></td>
                                     <td class="align-middle"><?php echo $item->nama_barang." (".$item->nama_jenis_kain.")" ?></td>
                                     <td class="align-middle"><?php echo $item->value_kriteria ?></td>
-                                    <td class="align-middle">
+                                    <!-- <td class="align-middle">
                                         <?php 
                                         if($item->status_pengerjaan == 'Belum Selesai'){
                                             echo '<span class="badge badge-danger">Belum</span>';
@@ -39,7 +39,7 @@
                                             echo '<span class="badge badge-success">Sudah</span>';
                                         }
                                         ?>
-                                    </td>
+                                    </td> -->
                                     <td class="align-middle">
                                         <a href="<?php echo base_url('transaction/' . $item->id_detail_transaksi . '/edit_detail') ?>" class="btn btn-sm btn-warning">Edit</a>
                                     </td>

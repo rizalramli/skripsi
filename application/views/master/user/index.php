@@ -31,6 +31,7 @@
                                     <td class="align-middle"><?php echo $item->email ?></td>
                                     <td class="align-middle"><?php echo $item->role ?></td>
                                     <td class="align-middle">
+                                        <a href="<?php echo base_url('user/' . $item->id_user . '/edit') ?>" class="btn btn-sm btn-warning">Edit</a>
                                         <a onclick="return confirm('Apakah anda yakin ingin menghapus?');" href="<?php echo base_url('user/' . $item->id_user . '/delete') ?>" class="btn btn-sm btn-danger">Hapus</a>
                                     </td>
                                 </tr>

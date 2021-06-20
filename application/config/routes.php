@@ -95,6 +95,8 @@ $route['cashier/grandTotal']             = 'transaction/CashierController/grandT
 $route['user']             = 'master/UserController/index';
 $route['user/create']             = 'master/UserController/create';
 $route['user/store']             = 'master/UserController/store';
+$route['user/(:any)/edit']   = 'master/UserController/edit/$1';
+$route['user/update']             = 'master/UserController/update';
 $route['user/(:any)/delete']   = 'master/UserController/delete/$1';
 
 

@@ -13,8 +13,8 @@
                         <thead>
                             <tr>
                                 <th width="5%" scope="col">No</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Tanggal Order</th>
+                                <!-- <th scope="col">Status</th> -->
+                                <!-- <th scope="col">Tanggal Order</th> -->
                                 <th scope="col">Nama</th>
                                 <th scope="col">HP</th>
                                 <th scope="col">DP</th>
@@ -29,7 +29,7 @@
                             ?>
                                 <tr>
                                     <td class="align-middle"><?php echo $i ?></td>
-                                    <td class="align-middle">
+                                    <!-- <td class="align-middle">
                                         <?php 
                                         if($item->status_transaksi == 'Belum'){
                                             echo '<span class="badge badge-danger">Belum</span>';
@@ -38,8 +38,8 @@
                                             echo '<span class="badge badge-success">Sudah</span>';
                                         }
                                         ?>
-                                    </td>
-                                    <td class="align-middle"><?php echo date('d-m-Y',strtotime($item->tgl_transaksi)) ?></td>
+                                    </td> -->
+                                    <!-- <td class="align-middle"><?php echo date('d-m-Y',strtotime($item->tgl_transaksi)) ?></td> -->
                                     <td class="align-middle"><?php echo $item->nama_customer ?></td>
                                     <td class="align-middle"><?php echo $item->no_hp ?></td>
                                     <td class="align-middle text-right"><?php echo rupiah($item->down_payment) ?></td>
