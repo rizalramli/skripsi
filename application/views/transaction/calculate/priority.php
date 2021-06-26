@@ -138,7 +138,9 @@
                                     ++$i;
 
                                     foreach ($kriteria as $k) {
-                                        $V[$i - 1] = sqrt($dmin[$i - 1]) / (sqrt($dmin[$i - 1]) + sqrt($dplus[$i - 1]));
+                                        $dminPrefensi = round(sqrt($dmin[$i - 1]),3);
+                                        $dplusPrefensi = round(sqrt($dplus[$i - 1]),3);
+                                        $V[$i - 1] = $dminPrefensi / ($dminPrefensi + $dplusPrefensi);
                                     }
                                     $preferensi = round($V[$i - 1], 3);
                                     $tampung_array[] = ["nama_barang" => $nama, "nilai" => $preferensi];

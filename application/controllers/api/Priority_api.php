@@ -128,7 +128,9 @@ class Priority_api extends REST_Controller
                 ++$i;
 
                 foreach ($kriteria as $k) {
-                    $V[$i - 1] = sqrt($dmin[$i - 1]) / (sqrt($dmin[$i - 1]) + sqrt($dplus[$i - 1]));
+                    $dminPrefensi = round(sqrt($dmin[$i - 1]),3);
+                    $dplusPrefensi = round(sqrt($dplus[$i - 1]),3);
+                    $V[$i - 1] = $dminPrefensi / ($dminPrefensi + $dplusPrefensi);
                 }
                 $preferensi = round($V[$i - 1], 3);
                 $explode = explode(",", $nama);
@@ -149,8 +151,20 @@ class Priority_api extends REST_Controller
             $tampung_array = array_reverse($tampung_array);
             $keys = array_column($tampung_array, 'nilai');
             array_multisort($keys, SORT_DESC, $tampung_array);
+            $no = 1;
+            foreach($tampung_array as $dd)
+            {
+                $x[] = [
+                    'nomer' => $no++,
+                    'customer' => $dd['customer'],
+                    'barang' => $dd['barang'],
+                    'jumlah' => $dd['jumlah'],
+                    'nilai' => $dd['nilai'],
+                    'detail' => $dd['detail'],
+                ];
+            }
             $result = array();
-            $result["data"] = $tampung_array;
+            $result["data"] = $x;
             $result["response_status"] = "OK";
             $result["response_message"] = "Berhasil Ambil Data Priority";
             $this->response($result, 200);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Jun 2021 pada 11.06
+-- Waktu pembuatan: 26 Jun 2021 pada 11.59
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 7.4.16
 
@@ -196,9 +196,9 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id_user`, `nama_user`, `email`, `password`, `role`) VALUES
-(4, 'admin', 'admin@gmail.com', '$2y$10$tsWT/ayAoPFlPl0MGUZB7OwFkjNJ98etC1QyS4x3Spob0NP3namgq', 'Admin'),
-(27, 'kasir', 'kasir@gmail.com', '$2y$10$NfkgZ0NdeRKf3IPZKitvEOrLAvdNPkgDR0F6r5BVmqYr9UU3io8w2', 'Kasir'),
-(29, 'pemilik', 'pemilik@gmail.com', '$2y$10$J6UTfOV3VAFkZsw5pxKQHOITeyzNe7y02mXKRWBCZFOIKLlFQWNLi', 'Pemilik');
+(4, 'admin', 'admin@mail.com', '$2y$10$tsWT/ayAoPFlPl0MGUZB7OwFkjNJ98etC1QyS4x3Spob0NP3namgq', 'Admin'),
+(27, 'kasir', 'kasir@mail.com', '$2y$10$NfkgZ0NdeRKf3IPZKitvEOrLAvdNPkgDR0F6r5BVmqYr9UU3io8w2', 'Kasir'),
+(29, 'pemilik', 'pemilik@mail.com', '$2y$10$J6UTfOV3VAFkZsw5pxKQHOITeyzNe7y02mXKRWBCZFOIKLlFQWNLi', 'Pemilik');
 
 --
 -- Indexes for dumped tables
