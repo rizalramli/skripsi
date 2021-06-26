@@ -133,7 +133,7 @@
                                                 <input type="text" class="form-control form-control-sm" name="nama_customer" required>
                                             </div>
                                             <div class="col-md-6">
-                                                <input type="text" class="form-control form-control-sm hp" value="0999999999" name="no_hp" required>
+                                                <input type="text" class="form-control form-control-sm hp" name="no_hp" required>
                                             </div>
                                             <div class="col-md-6 mt-2">
                                                 DP
