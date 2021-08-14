@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 26 Jun 2021 pada 11.59
+-- Waktu pembuatan: 09 Agu 2021 pada 08.16
 -- Versi server: 10.4.18-MariaDB
 -- Versi PHP: 7.4.16
 
@@ -70,42 +70,66 @@ CREATE TABLE `detail_transaksi` (
 --
 
 INSERT INTO `detail_transaksi` (`id_detail_transaksi`, `id_transaksi`, `id_barang`, `id_kriteria`, `nama_barang_detail`, `value_kriteria`, `status_pengerjaan`) VALUES
-(184, 'T0000001', 28, 5, 'Purworejo 01,082234641698,Merah Putih (Dril) 0000000001,56', '5', 'Belum Selesai'),
-(185, 'T0000001', 31, 5, 'Purworejo 01,082234641698,Busana / Batik (Cemara) 0000000001,56', '5', 'Belum Selesai'),
-(186, 'T0000001', 32, 5, 'Purworejo 01,082234641698,Olahraga (TC) 0000000001,56', '1', 'Belum Selesai'),
-(187, 'T0000001', 34, 5, 'Purworejo 01,082234641698,Pramuka (Dril) 0000000001,56', '7', 'Belum Selesai'),
-(188, 'T0000001', 28, 6, 'Purworejo 01,082234641698,Merah Putih (Dril) 0000000001,56', '2000000', 'Belum Selesai'),
-(189, 'T0000001', 31, 6, 'Purworejo 01,082234641698,Busana / Batik (Cemara) 0000000001,56', '2000000', 'Belum Selesai'),
-(190, 'T0000001', 32, 6, 'Purworejo 01,082234641698,Olahraga (TC) 0000000001,56', '2000000', 'Belum Selesai'),
-(191, 'T0000001', 34, 6, 'Purworejo 01,082234641698,Pramuka (Dril) 0000000001,56', '2000000', 'Belum Selesai'),
-(192, 'T0000001', 28, 7, 'Purworejo 01,082234641698,Merah Putih (Dril) 0000000001,56', '56', 'Belum Selesai'),
-(193, 'T0000001', 31, 7, 'Purworejo 01,082234641698,Busana / Batik (Cemara) 0000000001,56', '56', 'Belum Selesai'),
-(194, 'T0000001', 32, 7, 'Purworejo 01,082234641698,Olahraga (TC) 0000000001,56', '56', 'Belum Selesai'),
-(195, 'T0000001', 34, 7, 'Purworejo 01,082234641698,Pramuka (Dril) 0000000001,56', '56', 'Belum Selesai'),
-(196, 'T0000002', 28, 5, 'Karanganom 01,082247141420,Merah Putih (Dril) 0000000002,56', '3', 'Belum Selesai'),
-(197, 'T0000002', 31, 5, 'Karanganom 01,082247141420,Busana / Batik (Cemara) 0000000002,56', '5', 'Belum Selesai'),
-(198, 'T0000002', 32, 5, 'Karanganom 01,082247141420,Olahraga (TC) 0000000002,56', '3', 'Belum Selesai'),
-(199, 'T0000002', 34, 5, 'Karanganom 01,082247141420,Pramuka (Dril) 0000000002,56', '7', 'Belum Selesai'),
-(200, 'T0000002', 28, 6, 'Karanganom 01,082247141420,Merah Putih (Dril) 0000000002,56', '1500000', 'Belum Selesai'),
-(201, 'T0000002', 31, 6, 'Karanganom 01,082247141420,Busana / Batik (Cemara) 0000000002,56', '1500000', 'Belum Selesai'),
-(202, 'T0000002', 32, 6, 'Karanganom 01,082247141420,Olahraga (TC) 0000000002,56', '1500000', 'Belum Selesai'),
-(203, 'T0000002', 34, 6, 'Karanganom 01,082247141420,Pramuka (Dril) 0000000002,56', '1500000', 'Belum Selesai'),
-(204, 'T0000002', 28, 7, 'Karanganom 01,082247141420,Merah Putih (Dril) 0000000002,56', '56', 'Belum Selesai'),
-(205, 'T0000002', 31, 7, 'Karanganom 01,082247141420,Busana / Batik (Cemara) 0000000002,56', '56', 'Belum Selesai'),
-(206, 'T0000002', 32, 7, 'Karanganom 01,082247141420,Olahraga (TC) 0000000002,56', '56', 'Belum Selesai'),
-(207, 'T0000002', 34, 7, 'Karanganom 01,082247141420,Pramuka (Dril) 0000000002,56', '56', 'Belum Selesai'),
-(208, 'T0000003', 30, 5, 'Karanganom 02,082359374313,Merah Putih (Osfot) 0000000003,28', '3', 'Belum Selesai'),
-(209, 'T0000003', 31, 5, 'Karanganom 02,082359374313,Busana / Batik (Cemara) 0000000003,28', '7', 'Belum Selesai'),
-(210, 'T0000003', 33, 5, 'Karanganom 02,082359374313,Olahraga (Katun) 0000000003,28', '3', 'Belum Selesai'),
-(211, 'T0000003', 36, 5, 'Karanganom 02,082359374313,Pramuka (Osfot) 0000000003,28', '9', 'Belum Selesai'),
-(212, 'T0000003', 30, 6, 'Karanganom 02,082359374313,Merah Putih (Osfot) 0000000003,28', '500000', 'Belum Selesai'),
-(213, 'T0000003', 31, 6, 'Karanganom 02,082359374313,Busana / Batik (Cemara) 0000000003,28', '500000', 'Belum Selesai'),
-(214, 'T0000003', 33, 6, 'Karanganom 02,082359374313,Olahraga (Katun) 0000000003,28', '500000', 'Belum Selesai'),
-(215, 'T0000003', 36, 6, 'Karanganom 02,082359374313,Pramuka (Osfot) 0000000003,28', '500000', 'Belum Selesai'),
-(216, 'T0000003', 30, 7, 'Karanganom 02,082359374313,Merah Putih (Osfot) 0000000003,28', '28', 'Belum Selesai'),
-(217, 'T0000003', 31, 7, 'Karanganom 02,082359374313,Busana / Batik (Cemara) 0000000003,28', '28', 'Belum Selesai'),
-(218, 'T0000003', 33, 7, 'Karanganom 02,082359374313,Olahraga (Katun) 0000000003,28', '28', 'Belum Selesai'),
-(219, 'T0000003', 36, 7, 'Karanganom 02,082359374313,Pramuka (Osfot) 0000000003,28', '28', 'Belum Selesai');
+(1, 'T0000001', 28, 5, 'Purworejo 01,99999,Merah Putih (Dril) 0000000001,56', '5', 'Belum Selesai'),
+(2, 'T0000001', 31, 5, 'Purworejo 01,99999,Busana / Batik (Cemara) 0000000001,56', '5', 'Belum Selesai'),
+(3, 'T0000001', 32, 5, 'Purworejo 01,99999,Olahraga (TC) 0000000001,56', '1', 'Belum Selesai'),
+(4, 'T0000001', 34, 5, 'Purworejo 01,99999,Pramuka (Dril) 0000000001,56', '7', 'Belum Selesai'),
+(5, 'T0000001', 28, 6, 'Purworejo 01,99999,Merah Putih (Dril) 0000000001,56', '2000000', 'Belum Selesai'),
+(6, 'T0000001', 31, 6, 'Purworejo 01,99999,Busana / Batik (Cemara) 0000000001,56', '2000000', 'Belum Selesai'),
+(7, 'T0000001', 32, 6, 'Purworejo 01,99999,Olahraga (TC) 0000000001,56', '2000000', 'Belum Selesai'),
+(8, 'T0000001', 34, 6, 'Purworejo 01,99999,Pramuka (Dril) 0000000001,56', '2000000', 'Belum Selesai'),
+(9, 'T0000001', 28, 7, 'Purworejo 01,99999,Merah Putih (Dril) 0000000001,56', '56', 'Belum Selesai'),
+(10, 'T0000001', 31, 7, 'Purworejo 01,99999,Busana / Batik (Cemara) 0000000001,56', '56', 'Belum Selesai'),
+(11, 'T0000001', 32, 7, 'Purworejo 01,99999,Olahraga (TC) 0000000001,56', '56', 'Belum Selesai'),
+(12, 'T0000001', 34, 7, 'Purworejo 01,99999,Pramuka (Dril) 0000000001,56', '56', 'Belum Selesai'),
+(13, 'T0000001', 28, 16, 'Purworejo 01,99999,Merah Putih (Dril) 0000000001,56', '3', 'Belum Selesai'),
+(14, 'T0000001', 31, 16, 'Purworejo 01,99999,Busana / Batik (Cemara) 0000000001,56', '3', 'Belum Selesai'),
+(15, 'T0000001', 32, 16, 'Purworejo 01,99999,Olahraga (TC) 0000000001,56', '3', 'Belum Selesai'),
+(16, 'T0000001', 34, 16, 'Purworejo 01,99999,Pramuka (Dril) 0000000001,56', '3', 'Belum Selesai'),
+(17, 'T0000001', 28, 17, 'Purworejo 01,99999,Merah Putih (Dril) 0000000001,56', '1', 'Belum Selesai'),
+(18, 'T0000001', 31, 17, 'Purworejo 01,99999,Busana / Batik (Cemara) 0000000001,56', '5', 'Belum Selesai'),
+(19, 'T0000001', 32, 17, 'Purworejo 01,99999,Olahraga (TC) 0000000001,56', '3', 'Belum Selesai'),
+(20, 'T0000001', 34, 17, 'Purworejo 01,99999,Pramuka (Dril) 0000000001,56', '9', 'Belum Selesai'),
+(21, 'T0000002', 28, 5, 'Karanganom 01,09999,Merah Putih (Dril) 0000000002,56', '3', 'Belum Selesai'),
+(22, 'T0000002', 31, 5, 'Karanganom 01,09999,Busana / Batik (Cemara) 0000000002,56', '5', 'Belum Selesai'),
+(23, 'T0000002', 32, 5, 'Karanganom 01,09999,Olahraga (TC) 0000000002,56', '3', 'Belum Selesai'),
+(24, 'T0000002', 34, 5, 'Karanganom 01,09999,Pramuka (Dril) 0000000002,56', '7', 'Belum Selesai'),
+(25, 'T0000002', 28, 6, 'Karanganom 01,09999,Merah Putih (Dril) 0000000002,56', '1500000', 'Belum Selesai'),
+(26, 'T0000002', 31, 6, 'Karanganom 01,09999,Busana / Batik (Cemara) 0000000002,56', '1500000', 'Belum Selesai'),
+(27, 'T0000002', 32, 6, 'Karanganom 01,09999,Olahraga (TC) 0000000002,56', '1500000', 'Belum Selesai'),
+(28, 'T0000002', 34, 6, 'Karanganom 01,09999,Pramuka (Dril) 0000000002,56', '1500000', 'Belum Selesai'),
+(29, 'T0000002', 28, 7, 'Karanganom 01,09999,Merah Putih (Dril) 0000000002,56', '56', 'Belum Selesai'),
+(30, 'T0000002', 31, 7, 'Karanganom 01,09999,Busana / Batik (Cemara) 0000000002,56', '56', 'Belum Selesai'),
+(31, 'T0000002', 32, 7, 'Karanganom 01,09999,Olahraga (TC) 0000000002,56', '56', 'Belum Selesai'),
+(32, 'T0000002', 34, 7, 'Karanganom 01,09999,Pramuka (Dril) 0000000002,56', '56', 'Belum Selesai'),
+(33, 'T0000002', 28, 16, 'Karanganom 01,09999,Merah Putih (Dril) 0000000002,56', '3', 'Belum Selesai'),
+(34, 'T0000002', 31, 16, 'Karanganom 01,09999,Busana / Batik (Cemara) 0000000002,56', '3', 'Belum Selesai'),
+(35, 'T0000002', 32, 16, 'Karanganom 01,09999,Olahraga (TC) 0000000002,56', '3', 'Belum Selesai'),
+(36, 'T0000002', 34, 16, 'Karanganom 01,09999,Pramuka (Dril) 0000000002,56', '3', 'Belum Selesai'),
+(37, 'T0000002', 28, 17, 'Karanganom 01,09999,Merah Putih (Dril) 0000000002,56', '5', 'Belum Selesai'),
+(38, 'T0000002', 31, 17, 'Karanganom 01,09999,Busana / Batik (Cemara) 0000000002,56', '9', 'Belum Selesai'),
+(39, 'T0000002', 32, 17, 'Karanganom 01,09999,Olahraga (TC) 0000000002,56', '5', 'Belum Selesai'),
+(40, 'T0000002', 34, 17, 'Karanganom 01,09999,Pramuka (Dril) 0000000002,56', '7', 'Belum Selesai'),
+(41, 'T0000003', 30, 5, 'Karanganom 02,09999,Merah Putih (Osfot) 0000000003,28', '3', 'Belum Selesai'),
+(42, 'T0000003', 31, 5, 'Karanganom 02,09999,Busana / Batik (Cemara) 0000000003,28', '7', 'Belum Selesai'),
+(43, 'T0000003', 33, 5, 'Karanganom 02,09999,Olahraga (Katun) 0000000003,28', '3', 'Belum Selesai'),
+(44, 'T0000003', 36, 5, 'Karanganom 02,09999,Pramuka (Osfot) 0000000003,28', '9', 'Belum Selesai'),
+(45, 'T0000003', 30, 6, 'Karanganom 02,09999,Merah Putih (Osfot) 0000000003,28', '500000', 'Belum Selesai'),
+(46, 'T0000003', 31, 6, 'Karanganom 02,09999,Busana / Batik (Cemara) 0000000003,28', '500000', 'Belum Selesai'),
+(47, 'T0000003', 33, 6, 'Karanganom 02,09999,Olahraga (Katun) 0000000003,28', '500000', 'Belum Selesai'),
+(48, 'T0000003', 36, 6, 'Karanganom 02,09999,Pramuka (Osfot) 0000000003,28', '500000', 'Belum Selesai'),
+(49, 'T0000003', 30, 7, 'Karanganom 02,09999,Merah Putih (Osfot) 0000000003,28', '28', 'Belum Selesai'),
+(50, 'T0000003', 31, 7, 'Karanganom 02,09999,Busana / Batik (Cemara) 0000000003,28', '28', 'Belum Selesai'),
+(51, 'T0000003', 33, 7, 'Karanganom 02,09999,Olahraga (Katun) 0000000003,28', '28', 'Belum Selesai'),
+(52, 'T0000003', 36, 7, 'Karanganom 02,09999,Pramuka (Osfot) 0000000003,28', '28', 'Belum Selesai'),
+(53, 'T0000003', 30, 16, 'Karanganom 02,09999,Merah Putih (Osfot) 0000000003,28', '1', 'Belum Selesai'),
+(54, 'T0000003', 31, 16, 'Karanganom 02,09999,Busana / Batik (Cemara) 0000000003,28', '1', 'Belum Selesai'),
+(55, 'T0000003', 33, 16, 'Karanganom 02,09999,Olahraga (Katun) 0000000003,28', '1', 'Belum Selesai'),
+(56, 'T0000003', 36, 16, 'Karanganom 02,09999,Pramuka (Osfot) 0000000003,28', '1', 'Belum Selesai'),
+(57, 'T0000003', 30, 17, 'Karanganom 02,09999,Merah Putih (Osfot) 0000000003,28', '5', 'Belum Selesai'),
+(58, 'T0000003', 31, 17, 'Karanganom 02,09999,Busana / Batik (Cemara) 0000000003,28', '5', 'Belum Selesai'),
+(59, 'T0000003', 33, 17, 'Karanganom 02,09999,Olahraga (Katun) 0000000003,28', '1', 'Belum Selesai'),
+(60, 'T0000003', 36, 17, 'Karanganom 02,09999,Pramuka (Osfot) 0000000003,28', '9', 'Belum Selesai');
 
 -- --------------------------------------------------------
 
@@ -148,9 +172,11 @@ CREATE TABLE `kriteria` (
 --
 
 INSERT INTO `kriteria` (`id_kriteria`, `nama_kriteria`, `atribut`, `bobot`) VALUES
-(5, 'Bahan', 'Cost', 0.724),
-(6, 'DP', 'Benefit', 0.083),
-(7, 'Jumlah', 'Cost', 0.193);
+(5, 'Bahan', 'Cost', 0.187),
+(6, 'DP', 'Benefit', 0.151),
+(7, 'Jumlah', 'Cost', 0.172),
+(16, 'Kepercayaan', 'Benefit', 0.184),
+(17, 'Kesulitan', 'Cost', 0.306);
 
 -- --------------------------------------------------------
 
@@ -173,9 +199,9 @@ CREATE TABLE `transaksi` (
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `tgl_transaksi`, `nama_customer`, `no_hp`, `down_payment`, `total_harga`, `status_transaksi`) VALUES
-('T0000001', '2021-06-20', 'Purworejo 01', '082234641698', 8000000, 18872000, 'Belum'),
-('T0000002', '2021-06-20', 'Karanganom 01', '082247141420', 6000000, 18872000, 'Belum'),
-('T0000003', '2021-06-20', 'Karanganom 02', '082359374313', 2000000, 8596000, 'Belum');
+('T0000001', '2021-08-09', 'Purworejo', '99999', 8000000, 18872000, 'Belum'),
+('T0000002', '2021-08-09', 'Karanganom 01', '09999', 6000000, 18872000, 'Belum'),
+('T0000003', '2021-08-09', 'Karanganom 02', '09999', 2000000, 8596000, 'Belum');
 
 -- --------------------------------------------------------
 
@@ -254,7 +280,7 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT untuk tabel `detail_transaksi`
 --
 ALTER TABLE `detail_transaksi`
-  MODIFY `id_detail_transaksi` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=220;
+  MODIFY `id_detail_transaksi` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT untuk tabel `jenis_kain`
@@ -266,7 +292,7 @@ ALTER TABLE `jenis_kain`
 -- AUTO_INCREMENT untuk tabel `kriteria`
 --
 ALTER TABLE `kriteria`
-  MODIFY `id_kriteria` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id_kriteria` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
